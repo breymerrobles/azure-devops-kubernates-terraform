@@ -14,6 +14,7 @@ steps:
     secureFile: 'azure_rsa.pub'
 - task: TerraformCLI@0
   inputs:
+    resourceId: terraform-init
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
     #commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFile)'
@@ -27,11 +28,11 @@ steps:
     backendAzureRmKey: 'kubernates-dev.tfstate'
 - task: TerraformCLI@0
   inputs:
+    resourceId: terraform-apply
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFile)'
     environmentServiceName: 'azure-resource-manager-service-connection'
-   
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFile'
       
     
 
