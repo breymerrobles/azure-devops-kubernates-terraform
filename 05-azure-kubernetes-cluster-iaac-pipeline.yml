@@ -5,6 +5,9 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: '2.0.0'
 - script: echo K8S terraform Azure!
   displayName: 'Run a one-line script'
 
@@ -14,6 +17,8 @@ steps:
     secureFile: 'azure_rsa.pub'
 - task: TerraformCLI@0
   inputs:
+    resourceId: terraformId-breymerrobles
+    resourceAddress: 
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFile)'
