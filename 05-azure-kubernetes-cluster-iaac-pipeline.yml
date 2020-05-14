@@ -5,9 +5,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: TerraformInstaller@0
-  inputs:
-    terraformVersion: '2.0.0'
 - script: echo K8S terraform Azure!
   displayName: 'Run a one-line script'
 
