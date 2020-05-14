@@ -23,7 +23,7 @@ steps:
     backendAzureRmResourceGroupName: 'terraform-backend-rg'
     backendAzureRmResourceGroupLocation: 'westeurope'
     backendAzureRmStorageAccountName: 'storageaccountbreymerrobles'
-    backendAzureRmContainerName: 'storageaccountbreymerroblescontainer'
+    backendAzureRmContainerName: 'storageaccountcontainer'
     backendAzureRmKey: 'kubernates-dev.tfstate'
 
 
