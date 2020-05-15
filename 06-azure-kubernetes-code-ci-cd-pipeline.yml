@@ -49,6 +49,7 @@ stages:
         publishLocation: 'Container'
 - stage: Deploy
   displayName: Deploy image
+  dependsOn: Build
   jobs:  
   - job: Deploy
     displayName: Deploy
@@ -61,13 +62,13 @@ stages:
          downloadType: 'single'
          artifactName: 'manifests'
          itemPattern: '**/*.yaml'
-         downloadPath: '$(System.ArtifactsDirectory)'
+         downloadPath: '$(System.ArtifactsDirectory)/manifests'
      - task: KubernetesManifest@0
        inputs:
          action: 'deploy'
          kubernetesServiceConnection: 'azure-kubernates-connection'
          namespace: 'default'
-         manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
+         manifests: '$(System.ArtifactsDirectory)/manifests/deployment.yaml'
          containers: 'breymer/currency-exchange-devops:$(tag)'
 
 
