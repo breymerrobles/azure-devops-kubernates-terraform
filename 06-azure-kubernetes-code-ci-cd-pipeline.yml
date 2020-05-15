@@ -1,11 +1,3 @@
-# Docker
-# Build a Docker image 
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
-
-## stage2
-## download the K8S files
-##Deploy to K8S cluster with docker images already created.
 
 trigger:
 - master
@@ -14,13 +6,15 @@ resources:
 - repo: self
 
 variables:
-  tag: 19 
+  tag: 19
   #'$(Build.BuildId)'
 
 stages:
-## stage1
-##Build docker image
-##publish K8S flies
+
+# Stage 1
+# Build Docker Image
+# Publish the K8S Files
+
 - stage: Build
   displayName: Build image
   jobs:  
@@ -30,13 +24,12 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     # - task: Docker@2
-    #   displayName: Build an image
     #   inputs:
     #     containerRegistry: 'breymer-docker-hub'
     #     repository: 'breymer/currency-exchange-devops'
     #     command: 'buildAndPush'
     #     Dockerfile: '**/Dockerfile'
-    #   tags: '$(tag)'
+    #     tags: '$(tag)'
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
@@ -49,26 +42,25 @@ stages:
         publishLocation: 'Container'
 - stage: Deploy
   displayName: Deploy image
-  dependsOn: Build
   jobs:  
   - job: Deploy
     displayName: Deploy
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-     - task: DownloadBuildArtifacts@0
-       inputs:
-         buildType: 'current'
-         downloadType: 'single'
-         artifactName: 'manifests'
-         itemPattern: '**/*.yaml'
-         downloadPath: '$(System.ArtifactsDirectory)/manifests'
-     - task: KubernetesManifest@0
-       inputs:
-         action: 'deploy'
-         kubernetesServiceConnection: 'azure-kubernates-connection'
-         namespace: 'default'
-         manifests: '$(System.ArtifactsDirectory)/manifests/deployment.yaml'
-         containers: 'breymer/currency-exchange-devops:$(tag)'
-
-
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'manifests'
+        itemPattern: '**/*.yaml'
+        targetPath: '$(System.ArtifactsDirectory)'
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'azure-kubernates-connection'
+        namespace: 'default'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+        containers: 'breymer/currency-exchange-devops:$(tag)'
+# Stage 2
+# Download the K8S Files
+# Deploy to K8S Cluster with Docker Image
