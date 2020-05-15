@@ -22,7 +22,8 @@ spec:
         app: currency-exchange
     spec:
       containers:
-      - image: breymer/currency-exchange:0.0.1-SNAPSHOT #CHANGE
+      # - image: breymer/currency-exchange:0.0.1-SNAPSHOT #CHANGE
+      - image: breymer/currency-exchange-devops
         imagePullPolicy: IfNotPresent
         name: currency-exchange
         ports:
