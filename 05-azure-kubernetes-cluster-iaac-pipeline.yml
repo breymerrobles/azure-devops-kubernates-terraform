@@ -30,7 +30,7 @@ steps:
     command: 'plan'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
     environmentServiceName: 'azure-resource-manager-service-connection'
-    secureVarsFile: 'publickey.secureFile'
+    secureVarsFile: '$(publickey.secureFile)'
     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret)'
 
     
