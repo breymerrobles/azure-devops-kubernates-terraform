@@ -16,7 +16,7 @@ steps:
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath) -lock=false'
     backendType: 'azurerm'
     backendServiceArm: 'Azure subscription 1(4b3ef37a-20b7-462e-bd13-14839c122b92)'
     ensureBackend: true
@@ -31,11 +31,11 @@ steps:
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
     environmentServiceName: 'azure-resource-manager-service-connection'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath) -lock=false'
 - task: TerraformCLI@0
   inputs:
     command: 'destroy'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
     environmentServiceName: 'azure-resource-manager-service-connection'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath) -lock=false'
 
