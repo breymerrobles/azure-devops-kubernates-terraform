@@ -67,7 +67,7 @@ stages:
          action: 'deploy'
          kubernetesServiceConnection: 'azure-kubernates-connection'
          namespace: 'default'
-         manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+         manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
          containers: 'breymer/currency-exchange-devops:$(tag)'
 
 
