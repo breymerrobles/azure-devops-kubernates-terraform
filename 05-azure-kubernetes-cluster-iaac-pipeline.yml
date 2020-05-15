@@ -16,6 +16,7 @@ steps:
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    commandOptions: '-force'
     backendType: 'azurerm'
     backendServiceArm: 'Azure subscription 1(4b3ef37a-20b7-462e-bd13-14839c122b92)'
     ensureBackend: true
