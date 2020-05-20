@@ -18,3 +18,9 @@ steps:
     backendAWSBucketName: 'terraform-backend-state-in28minutes-br'
     backendAWSKey: 'kubernetes-dev.tfstate'
 ## terraform apply
+- task: TerraformTaskV1@0
+  inputs:
+    provider: 'aws'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
+    environmentServiceNameAWS: 'aws-for-terraform'
